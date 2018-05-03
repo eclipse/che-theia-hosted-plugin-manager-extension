@@ -26,12 +26,12 @@ export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUri
     }
 
     async processUri(uri: URI): Promise<URI> {
-        const hostedPluginTheiaInnstanceServer = await this.getHostedPluginTheiaInnstanceServer();
-        if (!hostedPluginTheiaInnstanceServer) {
+        const hostedPluginTheiaInstanceServer = await this.getHostedPluginTheiaInnstanceServer();
+        if (!hostedPluginTheiaInstanceServer) {
             throw new Error('No server with type "ide-dev" found.');
         }
 
-        const externalUri = new URI(hostedPluginTheiaInnstanceServer.url);
+        const externalUri = new URI(hostedPluginTheiaInstanceServer.url);
         return externalUri;
     }
 

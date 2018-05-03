@@ -1,5 +1,5 @@
 {
-  "name": "@theia/che-theia-hosted-plugin-manager-extension",
+  "name": "@eclipse-che/che-theia-hosted-plugin-manager-extension",
   "keywords": [
     "theia-extension"
   ],
@@ -9,13 +9,13 @@
     "node"
   ],
   "dependencies": {
-    "@theia/core": "latest",
-    "@theia/plugin-ext": "latest",
+    "@theia/core": "0.3.8",
+    "@theia/plugin-ext": "0.3.8",
     "@eclipse-che/workspace-client": "latest"
   },
   "devDependencies": {
     "rimraf": "^2.6.2",
-    "typescript": "latest"
+    "typescript": "2.7.2"
   },
   "scripts": {
     "prepare": "yarn run clean && yarn run build",
