@@ -1,0 +1,31 @@
+{
+  "name": "@theia/che-theia-hosted-plugin-manager-extension",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.3.8",
+  "files": [
+    "lib",
+    "node"
+  ],
+  "dependencies": {
+    "@theia/core": "latest",
+    "@theia/plugin-ext": "latest",
+    "@eclipse-che/workspace-client": "latest"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "backend": "lib/node/hosted-plugin-manager-contribution-extension-backend-module"
+    }
+  ]
+}
