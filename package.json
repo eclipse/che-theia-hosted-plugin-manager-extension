@@ -3,14 +3,14 @@
   "keywords": [
     "theia-extension"
   ],
-  "version": "0.3.8",
+  "version": "0.0.1",
   "files": [
     "lib",
     "node"
   ],
   "dependencies": {
-    "@theia/core": "0.3.8",
-    "@theia/plugin-ext": "0.3.8",
+    "@theia/core": "0.3.10",
+    "@theia/plugin-ext": "0.3.10",
     "@eclipse-che/workspace-client": "latest"
   },
   "devDependencies": {
