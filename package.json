@@ -9,8 +9,8 @@
     "node"
   ],
   "dependencies": {
-    "@theia/core": "0.3.12",
-    "@theia/plugin-ext": "0.3.12",
+    "@theia/core": "0.3.10",
+    "@theia/plugin-ext": "0.3.10",
     "@eclipse-che/workspace-client": "latest"
   },
   "devDependencies": {
