@@ -49,9 +49,15 @@ export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUri
         }
 
         const machines = workspace.runtime.machines;
-        for (let machineName in machines) {
+        for (const machineName in machines) {
+            if (!machines.hasOwnProperty(machineName)) {
+                continue;
+            }
             const servers = machines[machineName].servers;
-            for (let serverName in servers) {
+            for (const serverName in servers) {
+                if (!servers.hasOwnProperty(serverName)) {
+                    continue;
+                }
                 const serverAttributes = servers[serverName].attributes;
                 if (serverAttributes && serverAttributes['type'] === 'ide-dev') {
                     return servers[serverName];
