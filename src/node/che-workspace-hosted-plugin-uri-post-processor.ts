@@ -29,7 +29,7 @@ export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUri
     }
 
     async processUri(uri: URI): Promise<URI> {
-        const hostedPluginTheiaInstanceServer = await this.getHostedPluginTheiaInnstanceServer();
+        const hostedPluginTheiaInstanceServer = await this.getHostedPluginTheiaInstanceServer();
         if (!hostedPluginTheiaInstanceServer) {
             throw new Error('No server with type "ide-dev" found.');
         }
@@ -42,7 +42,7 @@ export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUri
      * Searches for server which exposes hosted Theia instance.
      * The server label is the attribute "type": "ide-dev".
      */
-    protected async getHostedPluginTheiaInnstanceServer(): Promise<IServer | undefined> {
+    protected async getHostedPluginTheiaInstanceServer(): Promise<IServer | undefined> {
         const workspace = await this.getCurrentWorkspace();
         if (!workspace.runtime) {
             throw new Error('Workspace is not running.');
