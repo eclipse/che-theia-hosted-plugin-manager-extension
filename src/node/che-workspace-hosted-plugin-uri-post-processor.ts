@@ -8,13 +8,18 @@
  * SPDX-License-Identifier: EPL-2.0
  **********************************************************************/
 
-import { injectable } from "inversify";
+import { injectable, inject } from "inversify";
 import URI from "@theia/core/lib/common/uri";
 import { HostedPluginUriPostProcessor } from "@theia/plugin-ext";
 import WorkspaceClient, { IRemoteAPI, IWorkspace, IServer, IRestAPIConfig } from '@eclipse-che/workspace-client';
+import { ILogger } from '@theia/core';
 
 @injectable()
 export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUriPostProcessor {
+
+    @inject(ILogger)
+    private readonly logger: ILogger;
+
     protected restApiClient: IRemoteAPI;
 
     constructor() {
@@ -29,6 +34,13 @@ export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUri
     }
 
     async processUri(uri: URI): Promise<URI> {
+        const workspaceId = process.env.CHE_WORKSPACE_ID;
+        if (!workspaceId) {
+            // not inside a valid workspace, don't do anything
+            this.logger.error('Not running inside a workspace (missing CHE_WORKSPACE_ID ENV property), skipping');
+            return uri;
+        }
+
         const hostedPluginTheiaInstanceServer = await this.getHostedPluginTheiaInstanceServer();
         if (!hostedPluginTheiaInstanceServer) {
             throw new Error('No server with type "ide-dev" found.');
