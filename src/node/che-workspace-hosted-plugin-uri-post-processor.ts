@@ -11,7 +11,8 @@
 import { injectable } from "inversify";
 import URI from "@theia/core/lib/common/uri";
 import { HostedPluginUriPostProcessor } from "@theia/plugin-ext";
-import WorkspaceClient, { IRemoteAPI, IWorkspace, IServer, IRestAPIConfig } from '@eclipse-che/workspace-client';
+import WorkspaceClient, { IRemoteAPI, IRestAPIConfig } from '@eclipse-che/workspace-client';
+import { che } from '@eclipse-che/api';
 
 @injectable()
 export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUriPostProcessor {
@@ -42,18 +43,18 @@ export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUri
      * Searches for server which exposes hosted Theia instance.
      * The server label is the attribute "type": "ide-dev".
      */
-    protected async getHostedPluginTheiaInstanceServer(): Promise<IServer | undefined> {
+    protected async getHostedPluginTheiaInstanceServer(): Promise<che.workspace.Server | undefined> {
         const workspace = await this.getCurrentWorkspace();
         if (!workspace.runtime) {
             throw new Error('Workspace is not running.');
         }
 
-        const machines = workspace.runtime.machines;
+        const machines = workspace.runtime.machines!;
         for (const machineName in machines) {
             if (!machines.hasOwnProperty(machineName)) {
                 continue;
             }
-            const servers = machines[machineName].servers;
+            const servers = machines[machineName].servers!;
             for (const serverName in servers) {
                 if (!servers.hasOwnProperty(serverName)) {
                     continue;
@@ -67,12 +68,12 @@ export class CheWorkspaceHostedPluginUriPostProcessor implements HostedPluginUri
         return undefined;
     }
 
-    protected async getCurrentWorkspace(): Promise<IWorkspace> {
+    protected async getCurrentWorkspace(): Promise<che.workspace.Workspace> {
         const workspaceId = process.env.CHE_WORKSPACE_ID;
         if (!workspaceId) {
             throw new Error('Environment variable CHE_WORKSPACE_ID is not set.');
         }
-        return await this.restApiClient.getById<IWorkspace>(workspaceId);
+        return await this.restApiClient.getById<che.workspace.Workspace>(workspaceId);
     }
 
 }
