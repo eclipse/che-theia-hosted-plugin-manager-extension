@@ -1,3 +1,5 @@
+> This repository deprecated all code moved [there](https://github.com/eclipse/che-theia/tree/master/extensions/che-theia-hosted-plugin-manager-extension)
+
 # Theia Hosted Plugin Manager extension
 
 This extension is Che specific and works only inside Che workspace.
